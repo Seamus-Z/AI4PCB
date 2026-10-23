@@ -1,0 +1,22 @@
+{
+  "name": "jlceda-schematic-toolkit",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Portable schematic skill, guarded stdio MCP and official JLCEDA Pro extension bridge",
+  "engines": { "node": ">=20.20" },
+  "scripts": {
+    "start": "node --env-file=local/bridge.env src/server.mjs",
+    "setup": "node scripts/setup.mjs",
+    "package:extension": "node scripts/package-extension.mjs",
+    "test": "node --test test/*.test.mjs",
+    "smoke": "node scripts/smoke.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.32.1",
+    "ws": "8.22.0",
+    "zod": "4.6.7",
+    "fflate": "0.8.2"
+  },
+  "devDependencies": { "esbuild": "0.28.2" }
+}

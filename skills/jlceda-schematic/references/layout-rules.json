@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "scope": "Cross-project schematic readability guidance; numeric targets are project policy, not IEC certification.",
+  "coordinates": { "input": "screen: +X right, +Y down", "sdkConversion": "invert Y once at adapter boundary", "unit": "10 mil", "roundPinCoordinates": false },
+  "preserveOnLayoutOnly": ["component identities", "pin numbers", "each named net's pin membership", "official symbol graphics", "procurement and custom properties", "intentional NC", "PCB and footprints"],
+  "layout": {
+    "signalFlow": "left to right",
+    "ordinaryWireTargetMaxBends": 2,
+    "pinExitTargetLength": 20,
+    "powerAndGround": "local native flags",
+    "crossModuleAndSameSideSignals": "short native ports where clearer",
+    "explanatoryConnections": "direct wires for feedback, compensation, timing RC, differential pairs and critical current/sense loops",
+    "crowdingResolution": "move/rotate components or expand modules before adding detours",
+    "labels": "horizontal preferred; leave room for native reference/value/net labels",
+    "officialSymbolBodyAndTextReview": "mandatory native-render visual review; SDK snapshot does not supply reliable full graphic bounds"
+  },
+  "machineChecks": ["closed operation schema", "exact project/page/snapshot guards", "duplicate refs and stale IDs", "nonzero orthogonal wires", "different-net crossings, T-contacts and overlaps", "NC contacts", "staged placement/rotation then actual pin readback"],
+  "deliveryChecks": ["native PADS membership versus intended connectivity/baseline", "native DRC with explained remaining warnings", "all PDF pages visually reviewed", "new-project reimport and object/netlist/NC readback", "PCB readiness stated separately"],
+  "references": ["https://prodocs.lceda.cn/cn/api/user-guide/using-extension.html", "https://prodocs.easyeda.com/en/api/reference/pro-api.sch_primitivecomponent.create.html", "https://webstore.iec.ch/en/publication/4469"]
+}

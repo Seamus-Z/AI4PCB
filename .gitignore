@@ -1,0 +1,9 @@
+node_modules/
+local/
+outputs/
+*.zip
+*.zip.sha256
+*.eext
+.env
+.env.*
+!.env.example

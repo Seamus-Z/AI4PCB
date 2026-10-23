@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "toolkitVersion": "1.0.0",
+  "overallStatus": "read-only-native-verified; native-new-project-write-verification-blocked",
+  "testedEnvironment": {
+    "os": "Linux x64",
+    "node": "20.20.0",
+    "jlcedaPro": "3.2.149.88089769",
+    "loadedOfficialApiModule": "0.2.53.aee2f57a"
+  },
+  "automatedRegression": {
+    "command": "npm test",
+    "tests": 46,
+    "passed": 46,
+    "failed": 0,
+    "coverage": [
+      "authenticated loopback bridge and exact Origin policy",
+      "single editor ownership and serial native requests",
+      "stale/single-use plans and backup-before-mutation",
+      "uncertain mutation timeout/disconnect/error write latch",
+      "closed input schemas and output path containment",
+      "orthogonal geometry, different-net contacts, NC and staging",
+      "PADS membership and append-only epru deletion semantics",
+      "RC/divider physical connectivity with configured roles and fractional pins"
+    ],
+    "note": "Protocol safety fixtures and geometry tests do not prove successful native editor writes."
+  },
+  "cleanInstall": {
+    "isolatedTemporaryDirectory": true,
+    "offlineNpmCiWithLockfile": true,
+    "freshSetupAndExtensionBuild": true,
+    "newPairingSecretDifferentFromOriginal": true,
+    "settingsFileMode": "0600",
+    "temporaryCopyRemoved": true
+  },
+  "actualNativeReadOnlyVerification": {
+    "transport": "standard stdio MCP client -> authenticated local bridge -> installed extension -> official eda API",
+    "authenticatedConnection": true,
+    "manualReconnectAfterServerRestart": true,
+    "nativeSchematicPagesRead": 7,
+    "componentsRead": 116,
+    "nativeFlagsAndPortsRead": 174,
+    "nativeNoConnectPinsRead": 13,
+    "nativeNetlistNets": 71,
+    "nativeNetlistConnectedPins": 307,
+    "netlistMembershipEqualToProtectedBaseline": true,
+    "changedNets": [],
+    "nativeEpro2ExportAndInMemoryInspection": true,
+    "nativeDrcSummary": [{ "type": "warn", "count": 1 }],
+    "liveGuardResults": [
+      { "tool": "jlc_create_project", "result": "READ_ONLY" },
+      { "tool": "jlc_plan", "result": "READ_ONLY" },
+      { "tool": "jlc_apply", "result": "READ_ONLY" },
+      { "tool": "arbitrary_eval", "result": "UNKNOWN_TOOL" },
+      { "tool": "jlc_snapshot with wrong project", "result": "EDITOR_ERROR: project guard" }
+    ]
+  },
+  "nativeNewProjectWriteVerification": {
+    "status": "blocked",
+    "command": "npm run smoke -- --create",
+    "failedStage": "jlc_create_project",
+    "actualMcpError": "EDITOR_ERROR: Native project creation failed",
+    "editorNativeNewProjectDialogError": "网络错误！",
+    "sourceBackupAndIntentSavedBeforeAttempt": true,
+    "writeLatchAfterFailure": true,
+    "completedNativeExamples": 0,
+    "nativePlacementWiringNcToggleVerification": "not reached",
+    "newExamplePdfVisuallyReviewed": false,
+    "newExampleReimportValidated": false,
+    "diagnosisPerformed": [
+      "verified actual current Personal team UUID",
+      "checked visible project metadata after failed creation",
+      "tested explicit valid ASCII project identifier",
+      "attempted creation in the official native New Project dialog",
+      "editor refresh and extension permission verification"
+    ],
+    "latestLiveInspectionLimit": "Original editor CDP endpoint was unreachable when continuing; no current application state was inferred from it. CDP is not a runtime dependency of the delivered MCP.",
+    "requiredBeforeRerun": "Restore successful online new-project creation in JLCEDA, inspect for partially created test projects and reconcile backups, then explicitly run the smoke command once. Do not auto-retry uncertain writes."
+  },
+  "protectedLocalArchives": {
+    "evidenceOnlyNotRuntimeDependencies": true,
+    "originalSourceSha256": "e7386def49eba049e73130ce535259b6735f12bfea4163ffaa03071f8fb19267",
+    "revGDeliveredArchiveSha256": "b2c9cf4305fc38b43fbbf12edd090d01091c4d2b9eee5211af59fba8d045acac",
+    "bothStillEqualToPriorDeliveryHashes": true
+  },
+  "distributionPrivacy": {
+    "publicPackageMustExclude": ["local/", "outputs/", "node_modules/", "paired extension containing secret"],
+    "rawPrivateEvidenceLocation": "Working-copy outputs/ only; not redistributed with the portable source package.",
+    "globalAgentOrMcpClientConfigChanged": false
+  },
+  "notProven": [
+    "new-project end-to-end native write workflow",
+    "new-example native PDF visual quality and reimport persistence",
+    "all future JLCEDA or operating-system versions",
+    "arbitrary circuit electrical correctness or automatic layout",
+    "PCB placement/routing readiness or hardware operation"
+  ]
+}

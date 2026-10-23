@@ -1,0 +1,19 @@
+{
+  "name": "jlceda-schematic-toolkit",
+  "uuid": "648590a96cdf4ab1a44651b4a5e1b708",
+  "displayName": "Schematic Toolkit",
+  "description": "Guarded native schematic operations for the local Schematic Toolkit MCP. Requires explicit external-interaction permission.",
+  "version": "1.0.0",
+  "publisher": "local-toolkit",
+  "engines": { "eda": ">=3.2.0" },
+  "license": "UNLICENSED",
+  "categories": "Other",
+  "keywords": ["schematic", "MCP"],
+  "activationEvents": {},
+  "entry": "./dist/index",
+  "dependentExtensions": {},
+  "headerMenus": {
+    "home": [{ "id": "schematic-toolkit", "title": "Schematic Toolkit", "menuItems": [{ "id": "connect", "title": "Connect MCP", "registerFn": "connect" }, { "id": "disconnect", "title": "Disconnect", "registerFn": "disconnect" }, { "id": "status", "title": "Connection Status", "registerFn": "showStatus" }] }],
+    "sch": [{ "id": "schematic-toolkit", "title": "Schematic Toolkit", "menuItems": [{ "id": "connect", "title": "Connect MCP", "registerFn": "connect" }, { "id": "disconnect", "title": "Disconnect", "registerFn": "disconnect" }, { "id": "status", "title": "Connection Status", "registerFn": "showStatus" }] }]
+  }
+}

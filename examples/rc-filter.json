@@ -1,0 +1,13 @@
+{
+  "name": "RC-Lowpass-Example",
+  "description": "10k / 100nF passive low-pass example; not a complete product design. Resolve official devices by supplierId each run; never reuse an old project's device UUID.",
+  "roles": { "resistor": "R1", "capacitor": "C1" },
+  "orientations": { "R1": "horizontal", "C1": "vertical" },
+  "parts": [
+    { "ref": "R1", "supplierId": "C25804", "manufacturerPart": "0603WAF1002T5E", "x": 400, "y": 250, "rotation": 90, "mirror": false },
+    { "ref": "C1", "supplierId": "C14663", "manufacturerPart": "CC0603KRX7R9BB104", "x": 650, "y": 370, "rotation": 0, "mirror": false }
+  ],
+  "modules": [ { "kind": "module.create", "left": 100, "top": 150, "right": 950, "bottom": 550, "title": "RC low-pass | input -> R -> output, C to GND" } ],
+  "netRoles": { "input": "INPUT", "output": "OUTPUT", "ground": "GND" },
+  "verification": "Read actual SDK pin positions after placing. Connect the left R pin to INPUT; right R and upper C pin to OUTPUT; lower C pin to GND. Compare every actual pin membership and render the native PDF."
+}

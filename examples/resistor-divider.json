@@ -1,0 +1,13 @@
+{
+  "name": "Resistor-Divider-Example",
+  "description": "Two official 10k resistors form an unloaded half-voltage divider; not a complete power or protection design.",
+  "roles": { "upper": "R1", "lower": "R2" },
+  "orientations": { "R1": "vertical", "R2": "vertical" },
+  "parts": [
+    { "ref": "R1", "supplierId": "C25804", "manufacturerPart": "0603WAF1002T5E", "x": 500, "y": 280, "rotation": 0, "mirror": false },
+    { "ref": "R2", "supplierId": "C25804", "manufacturerPart": "0603WAF1002T5E", "x": 500, "y": 500, "rotation": 0, "mirror": false }
+  ],
+  "modules": [ { "kind": "module.create", "left": 100, "top": 150, "right": 950, "bottom": 700, "title": "Resistor divider | upper R -> output node -> lower R -> GND" } ],
+  "netRoles": { "input": "VIN", "output": "DIV_OUT", "ground": "GND" },
+  "verification": "Read actual SDK pin positions after placing. Upper resistor top to VIN; upper bottom and lower top to DIV_OUT; lower bottom to GND. Branches use explicit shared endpoints."
+}
