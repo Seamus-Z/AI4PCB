@@ -1,7 +1,8 @@
 {
   "schemaVersion": 1,
   "toolkitVersion": "1.0.0",
-  "overallStatus": "read-only-native-verified; native-new-project-write-verification-blocked",
+  "extensionVersion": "1.0.2",
+  "overallStatus": "native-read-only-and-extension-factory-verified; SDK-online-new-project-create-still-blocked",
   "testedEnvironment": {
     "os": "Linux x64",
     "node": "20.20.0",
@@ -10,8 +11,8 @@
   },
   "automatedRegression": {
     "command": "npm test",
-    "tests": 46,
-    "passed": 46,
+    "tests": 48,
+    "passed": 48,
     "failed": 0,
     "coverage": [
       "authenticated loopback bridge and exact Origin policy",
@@ -21,7 +22,8 @@
       "closed input schemas and output path containment",
       "orthogonal geometry, different-net contacts, NC and staging",
       "PADS membership and append-only epru deletion semantics",
-      "RC/divider physical connectivity with configured roles and fractional pins"
+      "RC/divider physical connectivity with configured roles and fractional pins",
+      "captured native component-pose round-trip noise versus real half-grid displacement; exact pins preserved"
     ],
     "note": "Protocol safety fixtures and geometry tests do not prove successful native editor writes."
   },
@@ -89,8 +91,8 @@
     "globalAgentOrMcpClientConfigChanged": false
   },
   "notProven": [
-    "new-project end-to-end native write workflow",
-    "new-example native PDF visual quality and reimport persistence",
+    "SDK-online-created RC/divider end-to-end native write workflow",
+    "SDK-created RC/divider example native PDF visual quality and reimport persistence",
     "all future JLCEDA or operating-system versions",
     "arbitrary circuit electrical correctness or automatic layout",
     "PCB placement/routing readiness or hardware operation"

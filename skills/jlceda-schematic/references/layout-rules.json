@@ -12,9 +12,18 @@
     "explanatoryConnections": "direct wires for feedback, compensation, timing RC, differential pairs and critical current/sense loops",
     "crowdingResolution": "move/rotate components or expand modules before adding detours",
     "labels": "horizontal preferred; leave room for native reference/value/net labels",
+    "portLabels": "visible horizontal native Name attributes bound to ports, never detached same-name text",
+    "moduleFrames": "explicitly closed non-electrical border; title placed 25 units above top, reserve global title clearance",
     "officialSymbolBodyAndTextReview": "mandatory native-render visual review; SDK snapshot does not supply reliable full graphic bounds"
   },
   "machineChecks": ["closed operation schema", "exact project/page/snapshot guards", "duplicate refs and stale IDs", "nonzero orthogonal wires", "different-net crossings, T-contacts and overlaps", "NC contacts", "staged placement/rotation then actual pin readback"],
   "deliveryChecks": ["native PADS membership versus intended connectivity/baseline", "native DRC with explained remaining warnings", "all PDF pages visually reviewed", "new-project reimport and object/netlist/NC readback", "PCB readiness stated separately"],
+  "sdkObservations": {
+    "testedVersion": "0.2.53.aee2f57a",
+    "poseRoundTrip": "component-pose tolerance: 4 * Number.EPSILON * max(1, abs(actual), abs(expected)); electrical contacts retain exact observed coordinates",
+    "attributeCommit": "Attribute.done consumes screen Y while its getter reports SDK Y; normalize font size explicitly and inspect serialized attributes",
+    "textPersistence": "canvas/snapshot position changes do not prove PDF/epro2 persistence; recreate exact selected native GUI objects if necessary",
+    "scope": "observed on the tested version only; rerun native export/reimport after SDK upgrades"
+  },
   "references": ["https://prodocs.lceda.cn/cn/api/user-guide/using-extension.html", "https://prodocs.easyeda.com/en/api/reference/pro-api.sch_primitivecomponent.create.html", "https://webstore.iec.ch/en/publication/4469"]
 }

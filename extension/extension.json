@@ -3,7 +3,7 @@
   "uuid": "648590a96cdf4ab1a44651b4a5e1b708",
   "displayName": "Schematic Toolkit",
   "description": "Guarded native schematic operations for the local Schematic Toolkit MCP. Requires explicit external-interaction permission.",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "publisher": "local-toolkit",
   "engines": { "eda": ">=3.2.0" },
   "license": "UNLICENSED",

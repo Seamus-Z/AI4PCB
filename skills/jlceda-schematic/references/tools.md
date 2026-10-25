@@ -22,13 +22,13 @@ MCP服务名 `jlceda-schematic`，stdio传输。以下是封闭操作集，没�
 全部坐标是屏幕坐标，+Y向下，允许原始小数。旋转值使用0/90/180/270。
 
 - `component.create`: `device:{uuid,libraryUuid},ref,x,y,rotation?,mirror?,value?`。正式库DEVICE。第一批放置后读真实引脚，再布线。
-- `component.move`: `ref,x,y,rotation,mirror`。保留采购/自定义属性。旋转镜像变更与布线分批。
-- `marker.create`: `marker,net,x,y,rotation?`；marker为 `Ground/Power/AnalogGround/ProtectGround/IN/OUT/BI`。
+- `component.move`: `ref,x,y,rotation,mirror`。保留采购/自定义属性。旋转镜像变更与布线分批。位置读回仅容许SDK单位往返造成的4×机器精度×坐标量级误差；此容差绝不用于引脚接触、导线端点或吸附取整。
+- `marker.create`: `marker,net,x,y,rotation?`；marker为 `Ground/Power/AnalogGround/ProtectGround/IN/OUT/BI`。端口显示绑定的原生`Name`属性，显式可见/横排/8号字；属性提交有独立Y坐标约定，适配器已在边界处理，外部操作仍统一屏幕坐标。具体排版和旋转端口标签必须目视检查。
 - `wire.create`: `net,points:[[x,y],...],label?`。非零正交路径。默认可命名；与同名原生标识直接相连时避免重复命名。`label:false`只有已存在物理连接提供正确网名时使用，读回必须仍匹配net。
 - `pin.nc`: `ref,pin,enabled`。真实pin属性，不是新增符号。
 - `wire.delete` / `marker.delete`: `ids`。精确原生ID列表；不提供任意器件删除/整页清空。
 - `text.create`: `x,y,text,size?`。
-- `module.create`: `left,top,right,bottom,title`。仅非电气框和标题。
+- `module.create`: `left,top,right,bottom,title`。仅非电气闭合框和标题；标题在上边界上方25单位，不能把整页标题放在同一高度。
 
 ## 稳定性与安全
 
@@ -39,7 +39,7 @@ MCP服务名 `jlceda-schematic`，stdio传输。以下是封闭操作集，没�
 - 导出/备份仅写入固定输出目录，文件名由服务生成；客户端不能指定任意写入路径。目录包含电路设计资料，按工程密级保管。
 - localhost不是对同机恶意程序的沙箱。桥接只绑定127.0.0.1并要求随机secret；只接受显式信任的Origin和单一编辑器。不要公开CDP、LAN桥接或把配对secret放进共享包。
 - 官方API中部分方法仍为beta，版本升级必须重跑真实示例。自动几何检查不提供可靠的官方符号本体/文字边框；零穿器件、无标签遮挡必须看实际原生图面。
-- 不提供文字删除/修改：已观察到SDK画布删除与原生导出缓存不一致。本工具不会自动修补原始epru电气记录，也不静默执行缓存修复。
+- 不提供文字删除/修改：已观察到SDK画布修改/删除与原生PDF/epro2缓存不一致。本工具不会自动修补原始epru电气记录，也不静默执行缓存修复。需改文字时，明确ID后用原生GUI精确删除并创建新对象，再验证导出；只读回新位置不算通过。
 
 ## Skill使用方式
 

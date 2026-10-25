@@ -2,6 +2,9 @@ import { stableStringify, validateOperations, parsePads } from '../../src/geomet
 
 const must = (value, message) => { if (!value) throw new Error(message); return value; };
 const str = value => value == null ? '' : String(value);
+// Component poses cross the SDK's unit conversion; electrical contacts still
+// use the exact observed pin/wire coordinates, without snapping or tolerance.
+const samePoseCoordinate = (actual, expected) => Number.isFinite(actual) && Math.abs(actual - expected) <= 4 * Number.EPSILON * Math.max(1, Math.abs(actual), Math.abs(expected));
 const pointOn = (p, a, b) => (a[0] === b[0] && p[0] === a[0] && p[1] >= Math.min(a[1], b[1]) && p[1] <= Math.max(a[1], b[1])) || (a[1] === b[1] && p[1] === a[1] && p[0] >= Math.min(a[0], b[0]) && p[0] <= Math.max(a[0], b[0]));
 const touches = (a, b) => pointOn(a[0], ...b) || pointOn(a[1], ...b) || pointOn(b[0], ...a) || pointOn(b[1], ...a);
 const sorted = rows => rows.sort((a, b) => a.id.localeCompare(b.id));
@@ -142,10 +145,20 @@ export function createDispatcher(eda) {
       } else if (op.kind === 'component.move') {
         const c = must((await eda.sch_PrimitiveComponent.getAll()).find(c => c.getState_ComponentType() === 'part' && c.getState_Designator() === op.ref), 'Missing component: ' + op.ref);
         const changed = must(await eda.sch_PrimitiveComponent.modify(c, { x: op.x, y: -op.y, rotation: op.rotation, mirror: op.mirror, otherProperty: { ...(c.getState_OtherProperty() || {}), 'Supplier Part': c.getState_SupplierId() || '' } }), 'Native move failed: ' + op.ref);
-        must(changed.getState_X() === op.x && changed.getState_Y() === -op.y, 'Move position readback mismatch: ' + op.ref);
+        must(samePoseCoordinate(changed.getState_X(), op.x) && samePoseCoordinate(changed.getState_Y(), -op.y), 'Move position readback mismatch: ' + op.ref);
       } else if (op.kind === 'marker.create') {
         const method = ['IN', 'OUT', 'BI'].includes(op.marker) ? 'createNetPort' : 'createNetFlag';
         const c = must(await eda.sch_PrimitiveComponent[method](op.marker, op.net, op.x, -op.y, op.rotation ?? 0, false), 'Native marker creation failed');
+        if (method === 'createNetPort') {
+          const name = must((await eda.sch_PrimitiveAttribute.getAll(c.getState_PrimitiveId())).find(a => a.getState_Key() === 'Name'), 'Native port name attribute missing');
+          // Attribute.done consumes screen Y; its getter reports SDK Y.
+          name.setState_Y(-name.getState_Y());
+          name.setState_ValueVisible(true);
+          name.setState_Rotation(0);
+          name.setState_FontSize(8);
+          name.setState_AlignMode(name.getState_AlignMode());
+          await name.done();
+        }
         created.push({ kind: op.kind, id: c.getState_PrimitiveId() });
       } else if (op.kind === 'wire.create') {
         const markers = (await eda.sch_PrimitiveComponent.getAll()).filter(c => ['netflag', 'netport'].includes(c.getState_ComponentType()) && c.getState_Net() === op.net);
@@ -168,7 +181,7 @@ export function createDispatcher(eda) {
         const t = must(await eda.sch_PrimitiveText.create(op.x, -op.y, op.text, 0, undefined, undefined, op.size ?? 10, false, false, false, 1), 'Native text create failed');
         created.push({ kind: op.kind, id: t.getState_PrimitiveId() });
       } else if (op.kind === 'module.create') {
-        const p = must(await eda.sch_PrimitivePolygon.create([op.left, -op.top, op.left, -op.bottom, op.right, -op.bottom, op.right, -op.top], '#A8ADB5', 'none', 1, 0), 'Module frame create failed');
+        const p = must(await eda.sch_PrimitivePolygon.create([op.left, -op.top, op.left, -op.bottom, op.right, -op.bottom, op.right, -op.top, op.left, -op.top], '#A8ADB5', 'none', 1, 0), 'Module frame create failed');
         must(await eda.sch_PrimitiveText.create(op.left + 10, -op.top + 25, op.title, 0, undefined, undefined, 12, true, false, false, 1), 'Module title create failed');
         created.push({ kind: op.kind, id: p.getState_PrimitiveId() });
       } else throw new Error('Unsupported operation kind');
